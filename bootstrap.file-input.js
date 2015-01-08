@@ -47,6 +47,10 @@ $.fn.bootstrapFileInput = function() {
 
     // Now we're going to wrap that input field with a Bootstrap button.
     // The input will actually still be there, it will just be float above and transparent (done with the CSS).
+    // Modified @nbagonet(2015-01-09): Check input status(disabled) and add "disabled" into wrap container's className.
+    if ($elem.prop("disabled")) {
+      className += " disabled";
+    }
     $elem.wrap('<a class="file-input-wrapper btn btn-default ' + className + '"></a>').parent().prepend($('<span></span>').html(buttonWord));
   })
 
@@ -128,9 +132,11 @@ $.fn.bootstrapFileInput = function() {
 
 // Add the styles before the first stylesheet
 // This ensures they can be easily overridden with developer styles
+// Modified @nbagonet(2015-01-09): If filename width longer than wrap container width, ellipsis.
 var cssHtml = '<style>'+
-  '.file-input-wrapper { overflow: hidden; position: relative; cursor: pointer; z-index: 1; }'+
+  '.file-input-wrapper { overflow: hidden; position: relative; cursor: pointer; z-index: 1; max-width:100%;}'+
   '.file-input-wrapper input[type=file], .file-input-wrapper input[type=file]:focus, .file-input-wrapper input[type=file]:hover { position: absolute; top: 0; left: 0; cursor: pointer; opacity: 0; filter: alpha(opacity=0); z-index: 99; outline: 0; }'+
+  '.file-input-wrapper span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;}'+
   '.file-input-name { margin-left: 8px; }'+
   '</style>';
 $('link[rel=stylesheet]').eq(0).before(cssHtml);
