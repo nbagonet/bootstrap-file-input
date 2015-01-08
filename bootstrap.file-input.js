@@ -122,7 +122,8 @@ $.fn.bootstrapFileInput = function() {
         $(this).attr('title', fileName);
       } else {
         // Print the fileName aside (right after the the button)
-        $(this).parent().after('<span class="file-input-name">'+fileName+'</span>');
+        // Modified @nbagonet(2015-01-09): Support overlength filename.
+        $(this).parent().after('<span class="file-input-name" title="' + fileName + '">'+fileName+'</span>');
       }
     });
 
@@ -137,7 +138,7 @@ var cssHtml = '<style>'+
   '.file-input-wrapper { overflow: hidden; position: relative; cursor: pointer; z-index: 1; max-width:100%;}'+
   '.file-input-wrapper input[type=file], .file-input-wrapper input[type=file]:focus, .file-input-wrapper input[type=file]:hover { position: absolute; top: 0; left: 0; cursor: pointer; opacity: 0; filter: alpha(opacity=0); z-index: 99; outline: 0; }'+
   '.file-input-wrapper span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;}'+
-  '.file-input-name { margin-left: 8px; }'+
+  '.file-input-name { margin:10px 8px; display:block; max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:default;}'+
   '</style>';
 $('link[rel=stylesheet]').eq(0).before(cssHtml);
 
